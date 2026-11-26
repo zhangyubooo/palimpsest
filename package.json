@@ -1,0 +1,22 @@
+{
+  "name": "palimpsest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "PALIMPSEST — An Ecology of Memory. A persistent 2D artificial-life world where the dead keep shaping the living.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "sweep": "tsx scripts/sweep.ts",
+    "control": "tsx scripts/control.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.7",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}
