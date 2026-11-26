@@ -60,6 +60,7 @@ export function spawn(
     parentId,
     birthTick: world.tick,
     alive: true,
+    path: [wrap(x, config.size), wrap(y, config.size)],
   };
   world.organisms.push(organism);
   world.parents[organism.id] = parentId ?? 0;
@@ -87,9 +88,9 @@ export function cloneWorld(world: World): World {
     food: new Float32Array(world.food),
     trail: new Float32Array(world.trail),
     fertility: new Float32Array(world.fertility),
-    remains: world.remains.map((r) => ({ ...r, genome: { ...r.genome } })),
+    remains: world.remains.map((r) => ({ ...r, genome: { ...r.genome }, path: r.path.slice() })),
     parents: world.parents.slice(),
-    organisms: world.organisms.map((o) => ({ ...o, genome: { ...o.genome } })),
+    organisms: world.organisms.map((o) => ({ ...o, genome: { ...o.genome }, path: o.path.slice() })),
   };
 }
 

@@ -17,8 +17,8 @@ into the ground, where it keeps changing the lives that come after.
 | 3 | Trail field (deposit, diffuse, decay) drawn with a shader | done |
 | 4 | Remains: death records, gene pull, fertile ground | done |
 | 5 | Genesis: create a lifeform and choose where it lands | done |
-| 6 | Archive: specimen pages, lineage, remains-influence count | next |
-| 7 | Line-drawn morphology and the death animation | |
+| 6 | Archive: specimen pages, lineage, remains-influence count, save and return | done |
+| 7 | Line-drawn morphology and the death animation | next |
 | 8 | Tests, CI, deploy | |
 
 ## Run it
@@ -32,7 +32,9 @@ npm run control  # experiment: remains pull on vs off
 npm run stranger # experiment: does it matter where a lifeform lands?
 ```
 
-Keys: `space` pause, `←` / `→` speed, `M` memory view (ground only), `G` genesis, `R` next seed.
+Click a lifeform or a ring to open its archive page. Keys: `space` pause,
+`←` / `→` speed, `M` memory view (ground only), `G` genesis, `Esc` close,
+`R` new world. The world is saved in the browser; `?seed=7` starts a fresh one.
 
 ## How it is built
 
@@ -46,6 +48,11 @@ Keys: `space` pause, `←` / `→` speed, `M` memory view (ground only), `G` gen
 - `src/render/morphology.ts` draws a lifeform as a line figure from its genome.
 - `src/ui/genesis.ts` is the Genesis panel: five traits, a live body preview,
   then a click on the ground to choose where the lifeform begins.
+- `src/ui/specimen.ts` is the archive page of one lifeform: body, lifespan,
+  cause of death, descendants, strangers rewritten, range and lineage. Each
+  page has its own address (`#/specimen/271`).
+- `src/ui/storage.ts` saves the world in IndexedDB. On return, the engine
+  fast-forwards without drawing to catch up on the time away (capped).
 - `scripts/sweep.ts` runs the engine over a grid of settings and reports which
   ones keep a population alive without pinning it at the cap.
 - `tests/` checks determinism, invariants (energy, position and gene ranges,

@@ -57,6 +57,8 @@ export interface Organism {
   parentId: number | null;
   birthTick: number;
   alive: boolean;
+  /** Where it has been: x, y pairs sampled every config.pathInterval ticks. */
+  path: number[];
 }
 
 /**
@@ -70,7 +72,12 @@ export interface Remains {
   y: number;
   genome: Genome;
   generation: number;
+  parentId: number | null;
+  birthTick: number;
   deathTick: number;
+  cause: DeathCause;
+  /** The path it walked in life, as x, y pairs. */
+  path: number[];
   /** Births pulled by these remains whose line does not descend from the dead. */
   influence: number;
   /** Births pulled by these remains that do descend from the dead. */

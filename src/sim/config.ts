@@ -69,6 +69,8 @@ export interface SimConfig {
   baseLifespan: number; // ticks, scaled by resilience
   mutationRate: number; // std-dev-like spread of a gene mutation
   corpseFood: number; // food returned to the cell on death
+  /** Ticks between samples of an organism's position, kept for its archive page. */
+  pathInterval: number;
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
@@ -118,4 +120,5 @@ export const DEFAULT_CONFIG: SimConfig = {
   baseLifespan: 2600,
   mutationRate: 0.05,
   corpseFood: 5,
+  pathInterval: 50,
 };

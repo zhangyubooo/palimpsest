@@ -222,6 +222,7 @@ export function createStepper(config: SimConfig): Stepper {
 
       o.energy = Math.min(config.maxEnergy, o.energy + bite * config.foodEnergy - cost);
       o.age++;
+      if (o.age % config.pathInterval === 0) o.path.push(o.x, o.y);
 
       // 4. Breed -------------------------------------------------------------
       if (o.energy >= config.reproduceAt && o.age >= config.maturity && living < config.hardCap) {
@@ -272,7 +273,7 @@ export function createStepper(config: SimConfig): Stepper {
       else if (o.age >= lifespan) cause = 'old-age';
 
       if (cause) {
-        kill(world, config, o, cell);
+        kill(world, config, o, cell, cause);
         living--;
         events.push({
           type: 'death',
@@ -346,7 +347,7 @@ export function createStepper(config: SimConfig): Stepper {
   };
 }
 
-function kill(world: World, config: SimConfig, o: Organism, cell: number): void {
+function kill(world: World, config: SimConfig, o: Organism, cell: number, cause: DeathCause): void {
   const { size } = config;
   o.alive = false;
   o.energy = 0;
@@ -374,7 +375,11 @@ function kill(world: World, config: SimConfig, o: Organism, cell: number): void 
     y: o.y,
     genome: { ...o.genome },
     generation: o.generation,
+    parentId: o.parentId,
+    birthTick: o.birthTick,
     deathTick: world.tick,
+    cause,
+    path: [...o.path, o.x, o.y],
     influence: 0,
     kinInfluence: 0,
   });

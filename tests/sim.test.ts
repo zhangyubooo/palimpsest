@@ -209,6 +209,36 @@ describe('remains', () => {
     });
   });
 
+  it('keeps the life story with the body: parent, birth, cause and path', () => {
+    const world = createWorld(8, DEFAULT_CONFIG);
+    const events = run(world, DEFAULT_CONFIG, 3000);
+    const deaths = new Map(events.flatMap((e) => (e.type === 'death' ? [[e.id, e] as const] : [])));
+    expect(world.remains.length).toBeGreaterThan(10);
+    for (const r of world.remains) {
+      const death = deaths.get(r.id)!;
+      expect(r.cause).toBe(death.cause);
+      // The first population is stepped in its birth tick; children start the tick after.
+      expect([death.age, death.age - 1]).toContain(r.deathTick - r.birthTick);
+      expect(r.parentId ?? 0).toBe(world.parents[r.id]);
+      // The path starts where it was born, ends where it died, and has one sample per interval.
+      expect(r.path.length % 2).toBe(0);
+      expect(r.path.slice(-2)).toEqual([r.x, r.y]);
+      expect(r.path.length / 2).toBe(2 + Math.floor(death.age / DEFAULT_CONFIG.pathInterval));
+    }
+  });
+
+  it('survives being saved and loaded: a structured clone continues identically', () => {
+    const straight = createWorld(12, DEFAULT_CONFIG);
+    run(straight, DEFAULT_CONFIG, 1600);
+
+    const first = createWorld(12, DEFAULT_CONFIG);
+    run(first, DEFAULT_CONFIG, 900);
+    const loaded = structuredClone(first); // what IndexedDB hands back
+    run(loaded, DEFAULT_CONFIG, 700);
+
+    expect(fingerprint(loaded)).toBe(fingerprint(straight));
+  });
+
   it('pulls a child gene towards the remains by exactly the pull', () => {
     const world = createWorld(9, { ...DEFAULT_CONFIG, initialPopulation: 0 });
     const parent = randomGenome(world);

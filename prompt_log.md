@@ -57,3 +57,11 @@ Outcome: first commit. Then the experiment: found that mobility, not the pull,
 was why the world had no regions; added a home pull so organisms range around
 their birthplace; added the stranger experiment showing that descendants of a
 transplanted genome move towards the local dead only when the pull is on.
+
+## 2026-11-25 — step 6
+
+13. "Continue."
+
+Outcome: every organism records its path; remains keep parent, birth, cause
+and path; archive specimen page with its own address, lineage links and a
+range map; the world is saved in the browser and catches up on return.
