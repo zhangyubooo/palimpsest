@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "sweep": "tsx scripts/sweep.ts",
-    "control": "tsx scripts/control.ts"
+    "control": "tsx scripts/control.ts",
+    "stranger": "tsx scripts/stranger.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.7",

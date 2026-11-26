@@ -45,6 +45,9 @@ export interface Organism {
   y: number;
   vx: number;
   vy: number;
+  /** Where it was born. Organisms range around this point rather than across the world. */
+  homeX: number;
+  homeY: number;
   /** Wander direction in radians, random-walked every tick. */
   heading: number;
 

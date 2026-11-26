@@ -47,3 +47,13 @@ Outcome: step 4 written to disk and checked in the browser; Genesis panel
 (five traits with trade-offs, live line-drawn body preview), placement on the
 ground with a readout of who lies beneath, and markers that follow the
 visitor's own lifeforms through life and death.
+
+## 2026-11-25 — making place matter
+
+11. "Create it." (the git repository)
+12. "And that round of experiments can be done."
+
+Outcome: first commit. Then the experiment: found that mobility, not the pull,
+was why the world had no regions; added a home pull so organisms range around
+their birthplace; added the stranger experiment showing that descendants of a
+transplanted genome move towards the local dead only when the pull is on.

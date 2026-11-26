@@ -32,6 +32,12 @@ export interface SimConfig {
   baseSpeed: number;
   turnRate: number; // 0..1, how fast velocity follows the desired direction
   wanderJitter: number; // radians of random walk per tick
+  /**
+   * Pull back towards the birthplace. It grows with distance and reaches
+   * homeWeight at homeRadius. 0 lets organisms roam the whole world.
+   */
+  homeWeight: number;
+  homeRadius: number;
   separationRadius: number;
   socialRadius: number;
 
@@ -85,6 +91,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   baseSpeed: 0.8,
   turnRate: 0.15,
   wanderJitter: 0.35,
+  homeWeight: 0.8,
+  homeRadius: 20,
   separationRadius: 3,
   socialRadius: 12,
 

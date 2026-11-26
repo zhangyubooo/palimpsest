@@ -51,6 +51,8 @@ export function spawn(
     y: wrap(y, config.size),
     vx: 0,
     vy: 0,
+    homeX: wrap(x, config.size),
+    homeY: wrap(y, config.size),
     heading: nextRandom(world) * Math.PI * 2,
     energy,
     age: 0,

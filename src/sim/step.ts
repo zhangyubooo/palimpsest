@@ -173,9 +173,27 @@ export function createStepper(config: SimConfig): Stepper {
       const wSeparate = 1.5;
       const wTrail = config.trailWeight * Math.abs(liking);
 
+      // Home: the further from its birthplace, the harder it is pulled back.
+      let homeX = 0;
+      let homeY = 0;
+      if (config.homeWeight > 0) {
+        let hx = o.homeX - o.x;
+        let hy = o.homeY - o.y;
+        if (hx > size / 2) hx -= size;
+        else if (hx < -size / 2) hx += size;
+        if (hy > size / 2) hy -= size;
+        else if (hy < -size / 2) hy += size;
+        const away = Math.sqrt(hx * hx + hy * hy);
+        if (away > 1e-6) {
+          const strength = config.homeWeight * (away / config.homeRadius);
+          homeX = (hx / away) * strength;
+          homeY = (hy / away) * strength;
+        }
+      }
+
       const [dirX, dirY] = normalise(
-        wFood * nfx + wWander * Math.cos(o.heading) + wSocial * ncx + wSeparate * sepX + wTrail * ntx,
-        wFood * nfy + wWander * Math.sin(o.heading) + wSocial * ncy + wSeparate * sepY + wTrail * nty,
+        wFood * nfx + wWander * Math.cos(o.heading) + wSocial * ncx + wSeparate * sepX + wTrail * ntx + homeX,
+        wFood * nfy + wWander * Math.sin(o.heading) + wSocial * ncy + wSeparate * sepY + wTrail * nty + homeY,
       );
 
       // Fast metabolism moves faster; resilience trades speed for endurance.
